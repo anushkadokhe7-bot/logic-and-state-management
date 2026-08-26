@@ -1,0 +1,291 @@
+:root {
+  --ink: #1f2420;
+  --paper: #f6f4ee;
+  --paper-raised: #ffffff;
+  --line: #d8d3c4;
+  --moss: #4a6350;
+  --moss-dim: #8a9c8e;
+  --rust: #b5502e;
+  --shadow: rgba(31, 36, 32, 0.08);
+  --font-display: 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --font-mono: 'SF Mono', 'Courier New', monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--paper);
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px);
+  background-size: 100% 2.1em;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  padding: 4vh 20px 8vh;
+  display: flex;
+  justify-content: center;
+}
+
+.sheet {
+  width: 100%;
+  max-width: 560px;
+}
+
+header {
+  margin-bottom: 1.4em;
+  padding-bottom: 1em;
+  border-bottom: 2px solid var(--ink);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 2rem;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.tally {
+  font-size: 0.78rem;
+  color: var(--moss-dim);
+  text-align: right;
+  line-height: 1.4;
+}
+
+.tally strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.entry-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1.2em;
+}
+
+#task-input {
+  flex: 1;
+  background: var(--paper-raised);
+  border: 1.5px solid var(--ink);
+  padding: 0.7em 0.85em;
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  color: var(--ink);
+  outline: none;
+}
+
+#task-input::placeholder { color: #9a9587; }
+
+#task-input:focus {
+  box-shadow: 3px 3px 0 var(--moss);
+}
+
+#add-btn {
+  background: var(--ink);
+  color: var(--paper);
+  border: 1.5px solid var(--ink);
+  padding: 0.7em 1.1em;
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: transform 0.08s ease;
+}
+
+#add-btn:hover { background: var(--moss); border-color: var(--moss); }
+#add-btn:active { transform: translateY(1px); }
+
+.filters {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 1em;
+  font-size: 0.78rem;
+}
+
+.filter-btn {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--moss-dim);
+  padding: 0.4em 0.9em;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  text-transform: lowercase;
+  letter-spacing: 0.03em;
+}
+
+.filter-btn:hover { border-color: var(--ink); color: var(--ink); }
+
+.filter-btn.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+#task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  padding: 0.65em 0.1em;
+  border-bottom: 1px solid var(--line);
+  animation: settle 0.18s ease;
+}
+
+@keyframes settle {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.task .check {
+  flex-shrink: 0;
+  width: 1.1em;
+  height: 1.1em;
+  border: 1.5px solid var(--ink);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--paper);
+  font-size: 0.75em;
+}
+
+.task.completed .check {
+  background: var(--moss);
+  border-color: var(--moss);
+}
+
+.task-text {
+  flex: 1;
+  font-size: 0.92rem;
+  word-break: break-word;
+  cursor: text;
+}
+
+.task.completed .task-text {
+  color: var(--moss-dim);
+  text-decoration: line-through;
+  text-decoration-color: var(--moss-dim);
+}
+
+.task-text[contenteditable="true"] {
+  outline: none;
+  box-shadow: 0 1px 0 var(--rust);
+}
+
+.delete-btn {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: var(--moss-dim);
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0.2em 0.3em;
+  font-family: var(--font-mono);
+}
+
+.delete-btn:hover { color: var(--rust); }
+
+.empty-state {
+  text-align: center;
+  padding: 3em 1em;
+  color: var(--moss-dim);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.05rem;
+}
+
+/* Task aging: entries left open awhile visually "fade" like old ink,
+   a quiet nudge that something's been sitting on the ledger too long. */
+.task-age {
+  flex-shrink: 0;
+  font-size: 0.68rem;
+  color: var(--moss-dim);
+  letter-spacing: 0.02em;
+}
+
+.task.lingering {
+  border-bottom-color: var(--rust);
+}
+
+.task.lingering .task-text {
+  color: #6b6455;
+}
+
+.task.lingering .task-age {
+  color: var(--rust);
+}
+
+/* Undo toast */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 2.4em;
+  transform: translateX(-50%) translateY(0);
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  padding: 0.7em 0.6em 0.7em 1.1em;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  box-shadow: 0 4px 14px var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  z-index: 10;
+}
+
+.toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-4px);
+  pointer-events: auto;
+}
+
+.toast-undo-btn {
+  background: var(--moss);
+  color: var(--paper);
+  border: none;
+  padding: 0.4em 0.8em;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.toast-undo-btn:hover { background: #5c7a63; }
+
+footer {
+  margin-top: 1.4em;
+  padding-top: 0.8em;
+  border-top: 1px dashed var(--line);
+  font-size: 0.72rem;
+  color: var(--moss-dim);
+  display: flex;
+  justify-content: space-between;
+}
+
+.clear-btn {
+  background: none;
+  border: none;
+  color: var(--moss-dim);
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-decoration: underline;
+}
+
+.clear-btn:hover { color: var(--rust); }
+
+@media (prefers-reduced-motion: reduce) {
+  .task { animation: none; }
+}

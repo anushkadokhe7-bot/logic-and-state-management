@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ledger — a task list</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sheet">
+  <header>
+    <h1>Ledger</h1>
+    <div class="tally" id="tally">0 open</div>
+  </header>
+
+  <div class="entry-row">
+    <input type="text" id="task-input" placeholder="Enter a task..." maxlength="200" autocomplete="off">
+    <button id="add-btn">Add</button>
+  </div>
+
+  <div class="filters" id="filters">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="active">Active</button>
+    <button class="filter-btn" data-filter="completed">Completed</button>
+  </div>
+
+  <ul id="task-list"></ul>
+
+  <footer>
+    <span id="footer-count"></span>
+    <button class="clear-btn" id="clear-completed">Clear completed</button>
+  </footer>
+</div>
+
+<div class="toast" id="toast">
+  <span id="toast-message"></span>
+  <button class="toast-undo-btn" id="toast-undo">Undo</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
