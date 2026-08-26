@@ -1,43 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ledger — a task list</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ledger — Smart Task Manager</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div class="sheet">
-  <header>
-    <h1>Ledger</h1>
-    <div class="tally" id="tally">0 open</div>
-  </header>
+<div class="app">
 
-  <div class="entry-row">
-    <input type="text" id="task-input" placeholder="Enter a task..." maxlength="200" autocomplete="off">
-    <button id="add-btn">Add</button>
-  </div>
+    <!-- Header -->
+    <header class="header">
 
-  <div class="filters" id="filters">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="active">Active</button>
-    <button class="filter-btn" data-filter="completed">Completed</button>
-  </div>
+        <div>
+            <p class="eyebrow">PERSONAL PRODUCTIVITY</p>
+            <h1>Ledger</h1>
+            <p class="subtitle">
+                Organize your tasks. Track your progress.
+            </p>
+        </div>
 
-  <ul id="task-list"></ul>
+        <button id="themeBtn" class="icon-btn" title="Toggle theme">
+            🌙
+        </button>
 
-  <footer>
-    <span id="footer-count"></span>
-    <button class="clear-btn" id="clear-completed">Clear completed</button>
-  </footer>
-</div>
+    </header>
 
-<div class="toast" id="toast">
-  <span id="toast-message"></span>
-  <button class="toast-undo-btn" id="toast-undo">Undo</button>
+
+    <!-- Statistics -->
+    <section class="stats">
+
+        <div class="stat-card">
+            <span>Total</span>
+            <strong id="totalCount">0</strong>
+        </div>
+
+        <div class="stat-card">
+            <span>Active</span>
+            <strong id="activeCount">0</strong>
+        </div>
+
+        <div class="stat-card">
+            <span>Completed</span>
+            <strong id="completedCount">0</strong>
+        </div>
+
+        <div class="stat-card progress-card">
+            <span>Progress</span>
+            <strong id="progressText">0%</strong>
+
+            <div class="progress-bar">
+                <div id="progressBar"></div>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- Add task -->
+    <section class="task-input">
+
+        <input
+            type="text"
+            id="taskInput"
+            placeholder="What needs to be done?"
+            maxlength="120"
+        >
+
+        <button id="addBtn">
+            + Add Task
+        </button>
+
+    </section>
+
+
+    <!-- Search -->
+    <div class="search-box">
+
+        <span>🔎</span>
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search tasks..."
+        >
+
+    </div>
+
+
+    <!-- Filters -->
+    <div class="toolbar">
+
+        <div class="filters">
+
+            <button class="filter active" data-filter="all">
+                All
+            </button>
+
+            <button class="filter" data-filter="active">
+                Active
+            </button>
+
+            <button class="filter" data-filter="completed">
+                Completed
+            </button>
+
+        </div>
+
+        <button id="clearCompleted" class="clear-btn">
+            Clear completed
+        </button>
+
+    </div>
+
+
+    <!-- Task list -->
+    <main>
+
+        <div id="taskList" class="task-list"></div>
+
+        <div id="emptyState" class="empty-state">
+
+            <div class="empty-icon">✓</div>
+
+            <h2>No tasks here</h2>
+
+            <p>
+                Add a task above and start getting things done.
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <span id="taskSummary">0 tasks</span>
+
+        <button id="undoBtn" class="undo-btn hidden">
+            ↩ Undo
+        </button>
+
+    </footer>
+
 </div>
 
 <script src="script.js"></script>
+
 </body>
 </html>
